@@ -61,10 +61,26 @@ public class Main {
 ### 🤔 Preguntas de Análisis
 
 * Carga Perezosa: ¿Cuándo se ejecuta el constructor de RealImage en el código original vs en el código con Proxy?
+En el código origal que esta instanciado en RealImage, el constructor de RealImage se ejecuta en el momento de crear el objeto, aunque aún no se llame a display(). En el código Proxy, el constructor de RealImage se ejecuta cuando se manda a llamar el display() por promera vez y realImage sigue siendo null. 
+
 * Transparencia: ¿El código cliente necesita saber si está trabajando con un Proxy o con el objeto real? ¿Por qué?
+No, siempre y cuando que use la interfaz Image. Porque mabas clases implementan la misma interfaz Image y exponen el mismo método display(), por lo que el cliente puede tratarlas de forma uniforme. 
+
 * Rendimiento: ¿Qué ventajas de rendimiento ofrece el patrón Proxy en este escenario?
+    * Reduce el tiempo de inicio o de creación de objeto si la imagen nunca se llega a mostrar. 
+    * Evita cargar varias veces el mismo recurso pesado al conservar realImage tras la primera carga. 
+    * Ahorra memoria y E/Sde disco cuando se crean referencias a imágenes que no se utilizan. 
+
 * Control de Acceso: Además de la carga perezosa, ¿qué otros tipos de control podríamos implementar en el Proxy? (Ej: verificación de permisos, logging, cache)
+    * Verificación de permisos antes de instanciar o llamar a display().
+    * Control de sesión; verificar si la sesión dek usuario esta activa o autenticada antes de instanciar realImage o llamar a display().
+    * Permitir o bloquear la craga de filename según la hora o el día en que se llama el display().
+    * Comprobar el entorno que solicita la image, por ejemplo, permitirlo solo en ciertos clientes. 
+
+
 * Principio SOLID: ¿Qué principio SOLID se aplica aquí al permitir que el Proxy y el RealImage implementen la misma interfaz?
+
+Principio de Sustitución de Liskov(LSP) ya que el proxyiMAGE PUEDE SUSTUIR A iMAGE / realImage sin alterar el comportamiento esperado dle programa y también se apoya en el principio (DIP) y (OCP), al depender de la abstracción Image y poder agregar comportamiento sin modificar RealImage. 
 
 ### 🧪 Pruebas a Realizar
 
